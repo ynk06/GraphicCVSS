@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>練習ページです</h1>
+<hr size="30" noshade>
+<br>
+<form action="/practice">
+    <p><input type="submit" value="リセット"></p>
+</form>
+<form action="/">
+    <p><input type="submit" value="ホームに戻る"></p>
+</form>
+
+<p>--------------------------------------------------------------------</p>
+<h3>入力内容を下記に記載する</h3>
+<form action="/practice" method="POST">
+    <p>
+        <select name="age2">
+            <option value=""></option>
+            <option value="sample1">sample1</option>
+            <option value="sample2">sample2</option>
+            <option value="sample3">sample3</option>
+        </select>
+    </p>
+    <p><input type="submit" value="送信"></p>
+</form>
+<p>--------------------------------------------------------------------</p>
+{{ html_word }}
+<br><br><br>
+<p>--------------------------------------------------------------------</p>
+<div class="area">
+    <form method="get" enctype="multipart/form-data" action="/practice">
+    <input type="textarea" name="keyword" placeholder="キーワードを入力して下さい" style="width: 200px">
+    <input type="text" id="search-input" name="vendor" placeholder="ベンダー名を入力してください" style="width: 200px;">
+    <input type="submit" value="search">
+    </form>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{url_for('static', filename='./js/list.js')}}"></script>
+    <script src="{{url_for('static', filename='./js/search.js')}}"></script>
+</div>
+<p>--------------------------------------------------------------------</p>
+<p>--------------------------------------------------------------------</p>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="search_container">
+    <br><br>
+    <a href="/">戻る</a>
+    <center>{{ graph | safe }}</center><br>
+    <form method="POST">
+        <label for="threat">深刻度 : </label>
+        <select id="threat" name="threat" required>
+            <option value="all"></option>
+            <option value="C">緊急</option>
+            <option value="H">重要</option>
+            <option value="M">警告</option>
+            <option value="L">注意</option>
+        </select>
+        <label for="area">攻撃元区分 : </label>
+        <select id="area" name="area" required>
+            <option value="all"></option>
+            <option value="N">ネットワーク</option>
+            <option value="A">隣接</option>
+            <option value="L">ローカル</option>
+            <option value="P">物理</option>
+        </select>
+        <input type="submit" value="表示"><br>
+    </form>
+    <p>深刻度：{{ threat }}/ 攻撃区分：{{ area }}</p>
+    <br>
+    <p class="response">{{ response }}</p>
+    <br>
+</div>
+{% endblock %}
