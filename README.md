@@ -1,7 +1,5 @@
 # GraphicCVSS
-
-1．file_get.pyのSAVE_DIRを自身の環境に合わせて変更。（app.pyのあるディレクトリを指定）
  
-2．file_get.pyを動かしてファイルをダウンロードする。
+1．file_get.pyを動かしてファイルをダウンロードする。（起動時と毎日4時にダウンロードしてます。）
  
-3．flaskを起動する。
+2．flaskを起動する。
