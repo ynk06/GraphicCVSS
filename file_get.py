@@ -4,14 +4,12 @@ import re
 import schedule
 from time import sleep
 
-SAVE_DIR = "/home/fp8sqs/flask-main"
 NUM_PAGES = 2023
 
 def task():
     for i in range(2021, NUM_PAGES + 1):
         FILENAME = f"jvndb_{i}"
         URL = f"https://jvndb.jvn.jp/ja/rss/years/{FILENAME}.rdf"
-        FILE_PATH = os.path.join(SAVE_DIR, f"{FILENAME}.rdf")
         
         response = requests.get(URL)
         print(URL+" : download")
