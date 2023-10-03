@@ -2,30 +2,41 @@
 {% block content %}
 <div class="search_container">
     <br><br>
-    <a href="/">戻る</a>
+    <a href="/">戻る</a><br>
     <center>{{ graph | safe }}</center><br>
-    <form method="POST">
+    <form method="GET">
+        キーワード:<input type="textarea" name="keyword" placeholder="キーワードを入力して下さい" value="{{ keyword }}" style="width: 200px"><br>
+        CWE:<input type="text" id="cwe_search" name="cwe" placeholder="脆弱性タイプを入力して下さい" value="{{ cwe_full }}" style="width: 200px"><br>
+        ベンダー:<input type="text" id="search-input" name="vendor" placeholder="ベンダー名を入力してください" value="{{ vendor }}" style="width: 200px;"><br>
         <label for="threat">深刻度 : </label>
         <select id="threat" name="threat" required>
-            <option value="all"></option>
-            <option value="C">緊急</option>
-            <option value="H">重要</option>
-            <option value="M">警告</option>
-            <option value="L">注意</option>
+            <option value="all">全部</option>
+            <option value="C" {% if threat=='C' %}selected{% endif %}>緊急</option>
+            <option value="H" {% if threat=='H' %}selected{% endif %}>重要</option>
+            <option value="M" {% if threat=='M' %}selected{% endif %}>警告</option>
+            <option value="L" {% if threat=='L' %}selected{% endif %}>注意</option>
         </select>
         <label for="area">攻撃元区分 : </label>
         <select id="area" name="area" required>
-            <option value="all"></option>
-            <option value="N">ネットワーク</option>
-            <option value="A">隣接</option>
-            <option value="L">ローカル</option>
-            <option value="P">物理</option>
+            <option value="all">全部</option>
+            <option value="N" {% if area=='N' %}selected{% endif %}>ネットワーク</option>
+            <option value="A" {% if area=='A' %}selected{% endif %}>隣接</option>
+            <option value="L" {% if area=='L' %}selected{% endif %}>ローカル</option>
+            <option value="P" {% if area=='P' %}selected{% endif %}>物理</option>
         </select>
         <input type="submit" value="表示"><br>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="{{url_for('static', filename='./js/list.js')}}"></script>
+        <script src="{{url_for('static', filename='./js/search.js')}}"></script>
+        <script src="{{url_for('static', filename='./js/cwe_list.js')}}"></script>
+        <script src="{{url_for('static', filename='./js/cwe.js')}}"></script>
+        <script src="{{url_for('static', filename='./js/cwe_vendor.js')}}"></script>
+        <script src="{{url_for('static', filename='./js/cwe_search.js')}}"></script>
     </form>
-    <p>深刻度：{{ threat }}/ 攻撃区分：{{ area }}</p>
-    <br>
-    <p class="response">{{ response }}</p>
-    <br>
+<p>{{hit}} 件見つかりました。</p>
+<p class="response">{{ response }}</p>
+<br>
 </div>
 {% endblock %}
