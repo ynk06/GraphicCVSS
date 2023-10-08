@@ -22,11 +22,16 @@
     
     <fieldset class="fieldset" id="upload-field">
       <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
-        <input type="text" id="search-input" name="vendor" placeholder="ベンダー名を入力してください" style="width: 500px;">
+        <input type="text" id="vendor_input" name="vendor" placeholder="ベンダー名を入力してください" style="width: 500px;">
         <input class="button" type="submit" value="グラフ表示" id="csvSubmit">
       </form>
+      <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      <script src="{{url_for('static', filename='./js/cwelist.js')}}"></script>
+      <script src="{{url_for('static', filename='./js/cwesearch.js')}}"></script>
     </fieldset>
   </div></center>
+  <a href="/">戻る</a><br>
+  <br><br>
 
   <fieldset class="fieldset_data" id="switch-toggle-all">
     <h4><legend>描画するデータ系列</legend></h4>
