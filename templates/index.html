@@ -10,17 +10,163 @@
     <div class="content">
         <div classs="graph">
             <h1><a href="/graph">年月別脆弱性報告数推移のグラフ化ページ</a></h1>
+            <h1><a href="/cwe_graph">ベンダーごとCWE別報告数のグラフ化</a></h1>
         </div>
         <h2></h2>
         <br>
         <div class="search">
             <h3>キーワード、ベンダーで脆弱性を調べることができます！！</h3>
             <form method="get" enctype="multipart/form-data" action="/search">
-                キーワード:<input type="textarea" name="keyword" placeholder="キーワードを入力して下さい" style="width: 200px"><br>
-                CWE:<input type="text" id="cwe_search" name="cwe" placeholder="脆弱性タイプを入力して下さい" style="width: 200px"><br>
-                ベンダー:<input type="text" id="search-input" name="vendor" placeholder="ベンダー名を入力してください" style="width: 200px;"><br><br>
-                <input type="submit" value="search">
+                キーワード:<input type="textarea" name="keyword" placeholder="キーワードを入力して下さい" style="width: 400px"><br>
+                ベンダー:<input type="text" id="search-input" name="vendor" placeholder="ベンダー名を入力してください" style="width: 400px;"><br>
+                CWE:<select id="cwe_search" name="cwe">
+                    <option value="">全部</option>
+                    <option value="CWE-16 : 環境設定" {% if threat=="CWE-16 : 環境設定" %}selected{% endif %}>CWE-16 : 環境設定</option>
+                    <option value="CWE-20 : 不適切な入力確認" {% if threat=="CWE-20 : 不適切な入力確認" %}selected{% endif %}>CWE-20 : 不適切な入力確認</option>
+                    <option value="CWE-22 : パス・トラバーサル" {% if threat=="CWE-22 : パス・トラバーサル" %}selected{% endif %}>CWE-22 : パス・トラバーサル</option>
+                    <option value="CWE-59 : リンク解釈の問題" {% if threat=="CWE-59 : リンク解釈の問題" %}selected{% endif %}>CWE-59 : リンク解釈の問題</option>
+                    <option value="CWE-78 : OSコマンドインジェクション" {% if threat=="CWE-78 : OSコマンドインジェクション" %}selected{% endif %}>CWE-78 : OSコマンドインジェクション</option>
+                    <option value="CWE-79 : クロスサイトスクリプティング" {% if threat=="CWE-79 : クロスサイトスクリプティング" %}selected{% endif %}>CWE-79 : クロスサイトスクリプティング</option>
+                    <option value="CWE-89 : SQLインジェクション" {% if threat=="CWE-89 : SQLインジェクション" %}selected{% endif %}>CWE-89 : SQLインジェクション</option>
+                    <option value="CWE-94 : コード・インジェクション" {% if threat=="CWE-94 : コード・インジェクション" %}selected{% endif %}>CWE-94 : コード・インジェクション</option>
+                    <option value="CWE-119 : バッファエラー" {% if threat=="CWE-119 : バッファエラー" %}selected{% endif %}>CWE-119 : バッファエラー</option>
+                    <option value="CWE-134 : 書式文字列の問題" {% if threat=="CWE-134 : 書式文字列の問題" %}selected{% endif %}>CWE-134 : 書式文字列の問題</option>
+                    <option value="CWE-189 : 数値処理の問題" {% if threat=="CWE-189 : 数値処理の問題" %}selected{% endif %}>CWE-189 : 数値処理の問題</option>
+                    <option value="CWE-200 : 情報漏えい" {% if threat=="CWE-200 : 情報漏えい" %}selected{% endif %}>CWE-200 : 情報漏えい</option>
+                    <option value="CWE-255 : 証明書・パスワードの管理" {% if threat=="CWE-255 : 証明書・パスワードの管理" %}selected{% endif %}>CWE-255 : 証明書・パスワードの管理</option>
+                    <option value="CWE-264 : 認可・権限・アクセス制御" {% if threat=="CWE-264 : 認可・権限・アクセス制御" %}selected{% endif %}>CWE-264 : 認可・権限・アクセス制御</option>
+                    <option value="CWE-287 : 不適切な認証" {% if threat=="CWE-287 : 不適切な認証" %}selected{% endif %}>CWE-287 : 不適切な認証</option>
+                    <option value="CWE-310 : 暗号の問題" {% if threat=="CWE-310 : 暗号の問題" %}selected{% endif %}>CWE-310 : 暗号の問題</option>
+                    <option value="CWE-352 : クロスサイトリクエストフォージェリ" {% if threat=="CWE-352 : クロスサイトリクエストフォージェリ" %}selected{% endif %}>CWE-352 : クロスサイトリクエストフォージェリ</option>
+                    <option value="CWE-362 : 競合状態" {% if threat=="CWE-362 : 競合状態" %}selected{% endif %}>CWE-362 : 競合状態</option>
+                    <option value="CWE-399 : リソース管理の問題" {% if threat=="CWE-399 : リソース管理の問題" %}selected{% endif %}>CWE-399 : リソース管理の問題</option>
+                    <option value="CWE-Other : その他" {% if threat=="CWE-Other : その他" %}selected{% endif %}>CWE-Other : その他</option>
+                    <option value="CWE-nocwe : CWE以外" {% if threat=="CWE-nocwe : CWE以外" %}selected{% endif %}>CWE-nocwe : CWE以外</option>
+                    <option value="CWE-noinfo : 情報不足" {% if threat=="CWE-noinfo : 情報不足" %}selected{% endif %}>CWE-noinfo : 情報不足</option>
+                    <option value="CWE-DesignError : 設計上の問題" {% if threat=="CWE-DesignError : 設計上の問題" %}selected{% endif %}>CWE-DesignError : 設計上の問題</option>
+                </select><br>
+                
+                <label for="threat">深刻度(CVSSv3) : </label>
+                <select id="threat" name="threat" required>
+                    <option value="all">全部</option>
+                    <option value="C" {% if threat=='C' %}selected{% endif %}>緊急:(9.0～10.0)</option>
+                    <option value="H" {% if threat=='H' %}selected{% endif %}>重要:(7.0～8.9)</option>
+                    <option value="M" {% if threat=='M' %}selected{% endif %}>警告:(4.0～6.9)</option>
+                    <option value="L" {% if threat=='L' %}selected{% endif %}>注意:(0.1～3.9)</option>
+                </select>
+                <label for="area">攻撃元区分 : </label>
+                <select id="area" name="area" required>
+                    <option value="all">全部</option>
+                    <option value="N" {% if area=='N' %}selected{% endif %}>ネットワーク</option>
+                    <option value="A" {% if area=='A' %}selected{% endif %}>隣接</option>
+                    <option value="L" {% if area=='L' %}selected{% endif %}>ローカル</option>
+                    <option value="P" {% if area=='P' %}selected{% endif %}>物理</option>
+                </select>
+                <br><td>公表日：</td>
+          <td>
+                <select name="announcement_from_year" class="year">
+                <option value="">-</option>
+                </select>
+                年
+                <select name="announcement_from_month">
+                <option value="">-</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                </select>
+                月～
+                <select name="announcement_to_year" class="year">
+                    <option value="">-</option>
+                    </select>
+                年
+                <select name="announcement_to_month">
+                    <option value="">-</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                月
+                        </td>
+                        </tr>
+                        <tr>
+                        <br>
+                        <td>最終更新日：</td>
+                        <td>
+                            <select name="update_from_year" class="year">
+                                <option value="">-</option>
+                            </select>
+                年
+                <select name="update_from_month">
+                    <option value="">-</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                月
+                            ～
+                <select name="update_to_year" class="year">
+                    <option value="">-</option>
+                    </select>
+                年
+                <select name="update_to_month">
+                    <option value="">-</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                月
+                <br><br><input type="submit" value="search">
             </form>
+            <script>
+                const yearSelects = document.querySelectorAll(".year");
+                const currentYear = new Date().getFullYear();
+                const startYear = currentYear;
+                const endYear = 2017;
+                yearSelects.forEach((yearSelect) => {
+                    for (let year = startYear; year >= endYear; year--) {
+                        const option = document.createElement("option");
+                        option.value = year;
+                        option.text = year;
+                        yearSelect.appendChild(option);
+                    }
+                });
+            </script>
             <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
             <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
             <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -29,9 +175,7 @@
         </div>
         <br><br>
             <script src="{{url_for('static', filename='./js/cwe_list.js')}}"></script>
-            <script src="{{url_for('static', filename='./js/cwe.js')}}"></script>
-            <script src="{{url_for('static', filename='./js/cwe_vendor.js')}}"></script>
-            <script src="{{url_for('static', filename='./js/cwe_search.js')}}"></script><br>
+            <script src="{{url_for('static', filename='./js/cwe.js')}}"></script><br>
             <button onclick="location.href='/'" style="margin: 15px;">リセット</button>
         </div>
     </div>

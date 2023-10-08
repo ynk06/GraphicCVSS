@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Foundation -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="../static/css/app.css">
+</head>
+
+<body>
+  <div class="cwe_container"><center>
+  <div class="grid-x grid-padding-x">
+    
+    <fieldset class="fieldset" id="upload-field">
+      <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+        <input type="text" id="search-input" name="vendor" placeholder="ベンダー名を入力してください" style="width: 500px;">
+        <input class="button" type="submit" value="グラフ表示" id="csvSubmit">
+      </form>
+    </fieldset>
+  </div></center>
+
+  <fieldset class="fieldset_data" id="switch-toggle-all">
+    <h4><legend>描画するデータ系列</legend></h4>
+
+    <div class="switch-toggle-wrapper">
+      <div class="switch tiny">
+        <input class="switch-input" id="exampleSwitch1" type="checkbox" name="Toggle All" data-toggle-all>
+        <label class="switch-paddle" for="exampleSwitch1">
+          <span class="show-for-sr">Toggle All</span>
+        </label>
+      </div>
+      <span>全選択</span>
+    </div>
+    <hr />
+
+    {% if data %}
+    <form class="itemForm" id="itemForm" action="/select" method="post">
+      <!--データごとのボタンを表示-->
+      {% for d in data %}
+      <div class="switch-toggle-wrapper">
+        <div class="switch tiny">
+          <input type="checkbox" class="switch-input" id="{{d}}" name="item" value="{{d}}">
+          <label class="switch-paddle" for="{{d}}">
+            <span class="show-for-sr">{{d}}</span>
+          </label>
+        </div>
+        <span>{{d}}</span>
+      </div>
+      {% endfor %}
+      <div style="width:100%"></div>
+      <input class="button" type="submit" value="グラフ作成" id="itemSubmit">
+    </form>
+    {% endif %}
+  </fieldset>
+  <div class="grid-x grid-padding-x">
+    <div class="medium-8 cell" style="padding-top: 16px; padding-right: 0;">
+      <!-- <fieldset class="fieldset"> -->
+      <!-- <legend>グラフの選択</legend> -->
+        <div id="graphs">
+          {% if name %}
+          {% for k, v in name.items() %}
+          <div id="{{k}}">
+            <label>
+              {% if vendor %} 
+              <h3>{{ vendor }}のCWE別報告数の推移です</h3>
+              {% else %}
+              <h3>各年度ごとのCWE別報告数の推移です</h3>
+              {% endif %}
+            </label>
+            <div id='{{v}}'></div>
+          </div>
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  <footer>
+    <script>
+      {% if dataList %}
+      var d = {{ dataList | tojson }};
+      dataList = d;
+      {% endif %}
+
+      {% if indexList %}
+      var ind = {{ indexList | tojson }};
+      indexList = ind;
+      {% endif %}
+    </script>
+
+    <script src="../static/js/graph.js"></script>
+    <!-- <script src="../static/js/vendor/jquery.js"></script>
+    <script src="../static/js/vendor/what-input.js"></script>
+    <script src="../static/js/vendor/foundation.js"></script> -->
+    <script src="../static/js/button.js"></script>
+  </footer>
+</div>
+</body>
+
+</html>
