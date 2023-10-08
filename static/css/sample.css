@@ -56,7 +56,7 @@ body {
 }
 
 /*ヘッダー*/
-.container .header h2 {
+.container .header h1 {
   position: relative;
   padding: 1.5rem 1.5rem calc(1.5rem + 10px);
   display: flex;

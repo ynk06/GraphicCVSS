@@ -17,7 +17,7 @@ DEMO_DIR = "./"
 
 def csvToDf(csvTemp):
     os.system("nkf --overwrite -w " + csvTemp)
-    df = pd.read_csv(csvTemp, encoding="utf-8")
+    df = pd.read_csv(csvTemp, encoding="Shift-JIS")
 
     temp = df.iloc[0, 0].astype(np.float32)
     if np.isnan(temp):
@@ -61,7 +61,7 @@ def upload():
     vendor = request.form.get('vendor',default='')
 
     for jvn_file in jvn_list:
-        data = open(jvn_file, 'r', encoding="utf-8")
+        data = open(jvn_file, 'r', encoding="Shift-JIS")
         contents = data.read()
         data.close()
 
